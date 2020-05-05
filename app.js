@@ -11,29 +11,34 @@
 // canva will be a d3 wrap object
 const canvas = d3.select(".canva");
 
-let dataArray = [4, 15, 34];
+let dataArray = [4, 15, 34, 60, 1, 20];
 
 // add an svg element
-// const svg = canvas.append("svg").attr("width", "800").attr("height", "600");
+const svg = canvas.append("svg").attr("width", "800").attr("height", "600");
 
-const svg = canvas.select("svg");
+// const svg = canvas.select("svg");
 
 // const rect = svg.append("rect");
 
 const rect = svg.selectAll("rect");
 
+// Instead of hardcode all the rect in the html, we need to invoke the enter method.
+// it will tell the browser to keep connecting elements until the array arrives it's end.
+
 rect
-  .attr("width", 24)
   .data(dataArray)
-  .attr("height", function (d) {
-    return d * 3;
+  .enter()
+  .append("rect")
+  .attr("width", 24)
+  .attr("height", (d) => {
+    return d * 2;
   })
   .attr("fill", "orange")
-  .attr("y", function (d, i) {
+  .attr("y", (d, i) => {
     console.log(d, i);
-    return 100 - d * 3;
+    return 100 - d * 2;
   })
-  .attr("x", function (d, i) {
+  .attr("x", (d, i) => {
     console.log(d, i);
     return i * 25;
   });
